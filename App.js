@@ -5,14 +5,14 @@ import Login from './Login';
 
 export default function App() {
   return (
-    <Login/>
+    <Navigation/>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
   },
