@@ -1,8 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity } from "react-native";
-import Navigation from "./Navigation";
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+
 
 const Login = ({ navigation }) => {
   return (
