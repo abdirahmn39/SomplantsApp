@@ -1,10 +1,13 @@
 import React from "react";
+import { ScrollView } from "react-native";
 import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
 const Login = ({ navigation }) => {
   return (
     <View style={styles.container}>
+
       <Image style={styles.image} source={require("./assets/login.jpg")} />
       <Text style={styles.text}>Login Screen</Text>
 
@@ -18,6 +21,7 @@ const Login = ({ navigation }) => {
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
       </View>
+
     </View>
   );
 };
