@@ -1,118 +1,156 @@
-import React, { useState } from 'react';
-import { View, Image, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
-
-const DetailsScreen = ({ route }) => {
-  const { product } = route.params;
-  const [quantity, setQuantity] = useState(1);
-
-  const handleIncreaseQuantity = () => {
-    setQuantity(quantity + 1);
-  };
-
-  const handleDecreaseQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    }
-  };
-
-  const handleBuyProduct = () => {
-    alert(`Thanks for Purchasing ${quantity} quantity of ${product.name}`);
-  };
-
+import React from 'react';
+import {View, SafeAreaView, Image, Text, StyleSheet} from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import COLORS from './COLORS';
+const DetailsScreen = ({navigation, route}) => {
+  const plant = route.params;
   return (
-    <View style={styles.container}>
-      <Image source={product.image} style={styles.productImage} />
-      <Text style={styles.productName}>{product.name}</Text>
-      <Text style={styles.productPrice}>{product.price}</Text>
-      <View style={styles.horizontalLine} />
-
-      <Text style={styles.productDescription}>{product.description}</Text>
-      <View style={styles.quantityContainer}>
-        <TouchableOpacity style={styles.quantityButton} onPress={handleDecreaseQuantity}>
-          <Text style={styles.quantityButtonText}>-</Text>
-        </TouchableOpacity>
-        <Text style={styles.quantityText}>{quantity}</Text>
-        <TouchableOpacity style={styles.quantityButton} onPress={handleIncreaseQuantity}>
-          <Text style={styles.quantityButtonText}>+</Text>
-        </TouchableOpacity>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: COLORS.white,
+      }}>
+      <View style={style.header}>
+        <Icon name="arrow-back" size={28} onPress={() => navigation.goBack()} />
+        <Icon name="shopping-cart" size={28} />
       </View>
-      <TouchableOpacity style={styles.buyButton} onPress={handleBuyProduct}>
-        <Text style={styles.buyButtonText}>Purchase Now</Text>
-      </TouchableOpacity>
-    </View>
+      <View style={style.imageContainer}>
+        <Image source={plant.img} style={{resizeMode: 'contain', flex: 1}} />
+      </View>
+      <View style={style.detailsContainer}>
+        <View
+          style={{
+            marginLeft: 20,
+            flexDirection: 'row',
+            alignItems: 'flex-end',
+          }}>
+          <View style={style.line} />
+          <Text style={{fontSize: 18, fontWeight: 'bold'}}>Best choice</Text>
+        </View>
+        <View
+          style={{
+            marginLeft: 20,
+            marginTop: 20,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}>
+          <Text style={{fontSize: 22, fontWeight: 'bold'}}>{plant.name}</Text>
+          <View style={style.priceTag}>
+            <Text
+              style={{
+                marginLeft: 15,
+                color: COLORS.white,
+                fontWeight: 'bold',
+                fontSize: 16,
+              }}>
+              ${plant.price}
+            </Text>
+          </View>
+        </View>
+        <View style={{paddingHorizontal: 20, marginTop: 10}}>
+          <Text style={{fontSize: 20, fontWeight: 'bold'}}>About</Text>
+          <Text
+            style={{
+              color: 'grey',
+              fontSize: 16,
+              lineHeight: 22,
+              marginTop: 10,
+            }}>
+            {plant.about}
+          </Text>
+          <View
+            style={{
+              marginTop: 20,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <View style={style.borderBtn}>
+                <Text style={style.borderBtnText}>-</Text>
+              </View>
+              <Text
+                style={{
+                  fontSize: 20,
+                  marginHorizontal: 10,
+                  fontWeight: 'bold',
+                }}>
+                1
+              </Text>
+              <View style={style.borderBtn}>
+                <Text style={style.borderBtnText}>+</Text>
+              </View>
+            </View>
+            <View style={style.buyBtn}>
+              <Text
+                style={{color: COLORS.white, fontSize: 18, fontWeight: 'bold'}}>
+                Buy
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    </SafeAreaView>
   );
 };
-
-const windowWidth = Dimensions.get('window').width;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: '#F5FCFF',
-    alignItems: 'center',
-  },
-  productImage: {
-    width: 200,
-    height: 200,
-    marginBottom: 16,
-  },
-  productName: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 8,
-  },
-  productPrice: {
-    fontSize: 16,
-    color: '#888888',
-    marginBottom: 8,
-  },
-  horizontalLine: {
-    width: windowWidth - 32,
-    height: 1,
-    backgroundColor: '#888888',
-    marginBottom: 8,
-  },
-  
-  productDescription: {
-    fontSize: 14,
-    color: '#555555',
-    textAlign: 'left',
-    marginBottom: 8,
-  },
-
-  quantityContainer: {
+const style = StyleSheet.create({
+  header: {
+    paddingHorizontal: 20,
+    marginTop: 20,
     flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  imageContainer: {
+    flex: 0.45,
+    marginTop: 20,
+    justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 8,
   },
-  quantityButton: {
-    backgroundColor: '#007815',
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    borderRadius: 4,
+  detailsContainer: {
+    flex: 0.55,
+    backgroundColor: COLORS.light,
+    marginHorizontal: 7,
+    marginBottom: 7,
+    borderRadius: 20,
+    marginTop: 30,
+    paddingTop: 30,
   },
-  quantityButtonText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: 'bold',
+  line: {
+    width: 25,
+    height: 2,
+    backgroundColor: COLORS.dark,
+    marginBottom: 5,
+    marginRight: 3,
   },
-  quantityText: {
-    fontSize: 16,
-    marginHorizontal: 12,
+  borderBtn: {
+    borderColor: 'grey',
+    borderWidth: 1,
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 60,
+    height: 40,
   },
-  buyButton: {
-    marginTop: 16,
-    backgroundColor: '#007815',
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 8,
+  borderBtnText: {fontWeight: 'bold', fontSize: 28},
+  buyBtn: {
+    width: 130,
+    height: 50,
+    backgroundColor: COLORS.green,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 30,
   },
-  buyButtonText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: 'bold',
+  priceTag: {
+    backgroundColor: COLORS.green,
+    width: 80,
+    height: 40,
+    justifyContent: 'center',
+    borderTopLeftRadius: 25,
+    borderBottomLeftRadius: 25,
   },
 });
-
 export default DetailsScreen;
