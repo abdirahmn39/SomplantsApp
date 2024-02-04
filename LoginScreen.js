@@ -13,7 +13,7 @@ const LoginScreen = ({ navigation }) => {
       Password: Password,
     };
     console.log('Logging in with:', userData);
-    fetch('http://192.168.135.234:3000/login', {
+    fetch('http://192.168.1.128:3000/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

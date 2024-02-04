@@ -20,7 +20,7 @@ const Register = ({navigation}) => {
         Email,
       };
       // Make the API request to your server
-      fetch('http://192.168.135.234:3000/register', {
+      fetch('http://192.168.1.128:3000/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
